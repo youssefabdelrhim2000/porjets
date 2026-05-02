@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: security_portal_db
+    environment:
+      POSTGRES_DB: auth_db            # <-- غيرنا اسم الداتابيز
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456       # <-- غيرنا الباسورد
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    container_name: security_portal_backend
+    environment:
+      DB_HOST: security_portal_db     # <-- دي الوحيدة اللي مستحيل تبقى localhost
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: 123456             # <-- غيرنا الباسورد
+      DB_NAME: auth_db                # <-- غيرنا اسم الداتابيز
+      PORT: 3000
+      JWT_SECRET: supersecretkeychangeinproduction123456789
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=/api
+    container_name: security_portal_frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

@@ -1,0 +1,196 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+Central Security Sector Theme - Military/Formal Design
+*/
+
+@layer base {
+  /* Light Mode */
+  :root {
+    --background: 40 20% 95%;
+    --foreground: 0 0% 15%;
+
+    --card: 40 20% 98%;
+    --card-foreground: 0 0% 15%;
+
+    --popover: 40 20% 98%;
+    --popover-foreground: 0 0% 15%;
+
+    --primary: 45 80% 40%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 40 15% 90%;
+    --secondary-foreground: 0 0% 15%;
+
+    --muted: 40 15% 85%;
+    --muted-foreground: 0 0% 45%;
+
+    --accent: 0 75% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 40 20% 80%;
+    --input: 40 20% 88%;
+    --ring: 45 80% 40%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 40 20% 92%;
+    --sidebar-foreground: 0 0% 15%;
+    --sidebar-primary: 45 80% 40%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 40 15% 85%;
+    --sidebar-accent-foreground: 0 0% 15%;
+    --sidebar-border: 40 20% 75%;
+    --sidebar-ring: 45 80% 40%;
+
+    /* Custom gradients - Light */
+    --gradient-gold: linear-gradient(135deg, hsl(45, 80%, 45%), hsl(35, 90%, 35%));
+    --gradient-dark: linear-gradient(180deg, hsl(40, 20%, 95%), hsl(40, 20%, 90%));
+    --shadow-gold: 0 4px 20px -5px hsl(45 80% 40% / 0.3);
+  }
+
+  /* Dark Mode */
+  .dark {
+    --background: 0 0% 5%;
+    --foreground: 45 80% 85%;
+
+    --card: 0 0% 10%;
+    --card-foreground: 45 80% 85%;
+
+    --popover: 0 0% 10%;
+    --popover-foreground: 45 80% 85%;
+
+    --primary: 45 80% 50%;
+    --primary-foreground: 0 0% 5%;
+
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 45 80% 85%;
+
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 55%;
+
+    --accent: 0 75% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 45 30% 20%;
+    --input: 0 0% 18%;
+    --ring: 45 80% 50%;
+
+    --sidebar-background: 0 0% 8%;
+    --sidebar-foreground: 45 80% 85%;
+    --sidebar-primary: 45 80% 50%;
+    --sidebar-primary-foreground: 0 0% 5%;
+    --sidebar-accent: 0 0% 12%;
+    --sidebar-accent-foreground: 45 80% 85%;
+    --sidebar-border: 45 30% 18%;
+    --sidebar-ring: 45 80% 50%;
+
+    /* Custom gradients - Dark */
+    --gradient-gold: linear-gradient(135deg, hsl(45, 80%, 50%), hsl(35, 90%, 40%));
+    --gradient-dark: linear-gradient(180deg, hsl(0, 0%, 12%), hsl(0, 0%, 6%));
+    --shadow-gold: 0 4px 20px -5px hsl(45 80% 50% / 0.3);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+}
+
+/* Custom animations */
+@keyframes pulse-gold {
+  0%, 100% {
+    box-shadow: 0 0 0 0 hsl(45 80% 50% / 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 10px hsl(45 80% 50% / 0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-40px) translateX(-10px);
+    opacity: 0.3;
+  }
+  75% {
+    transform: translateY(-20px) translateX(5px);
+    opacity: 0.6;
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes shooting-star {
+  0% {
+    transform: translateX(0) translateY(0);
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(300px) translateY(300px);
+    opacity: 0;
+  }
+}
+
+.animate-pulse-gold {
+  animation: pulse-gold 2s infinite;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 8s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+.animate-shooting-star {
+  animation: shooting-star 4s ease-in-out infinite;
+}
